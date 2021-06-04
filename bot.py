@@ -16,6 +16,19 @@ def send_welcome(message):
     bot.reply_to(message, "Help Message hasn\'t implemented yet")
     print('help command ' + str(message.chat.id))
 
+@bot.message_handler(commands=['idea'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, 'Фабрика идей! Добрый день! ' +
+                                      'Опишите подробнее свою идею по улучшению качеству в компании')
+    print('idea command ' + str(message.chat.id))
+
+
+@bot.message_handler(commands=['warning'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, 'Добрый день! Укажите номер своего рабочего места (станка), ' +
+                                      'который необходимо проверить')
+    print('warning command ' + str(message.chat.id))
+
 
 @bot.message_handler(commands=['contacts'])
 def contacts_command(message):
@@ -36,7 +49,7 @@ def timetable_command(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-    bot.reply_to(message, message.text)
+    bot.send_message(message.chat.id, 'Спасибо, в ближайшее время с вами свяжется бригада по ремонту')
 
 
 bot.polling()
