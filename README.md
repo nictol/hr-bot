@@ -15,3 +15,7 @@ This bot for education and demonstration only. Demo version
 > idea - Фабрика идей
 
 > warning - Предупреждение
+
+> start - С чего начать
+
+> help - Помощь

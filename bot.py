@@ -1,6 +1,7 @@
 import telebot
 
 import config
+import util
 
 bot = telebot.TeleBot(config.TOKEN)
 
@@ -11,34 +12,28 @@ def send_welcome(message):
     print('start command ' + str(message.chat.id))
 
 
-@bot.message_handler(commands=['help'])
-def send_welcome(message):
-    bot.reply_to(message, "Help Message hasn\'t implemented yet")
-    print('help command ' + str(message.chat.id))
+@bot.message_handler(commands=[config.HELP_COMMAND])
+def contacts_command(message):
+    util.send_answer(bot, message.chat.id, config.HELP_ANSWER_FILE, config.HELP_LOG)
+
 
 @bot.message_handler(commands=['idea'])
 def send_welcome(message):
     bot.send_message(message.chat.id, 'Фабрика идей! Добрый день! ' +
-                                      'Опишите подробнее свою идею по улучшению качеству в компании')
+                     'Опишите подробнее свою идею по улучшению качеству в компании')
     print('idea command ' + str(message.chat.id))
 
 
 @bot.message_handler(commands=['warning'])
 def send_welcome(message):
     bot.send_message(message.chat.id, 'Добрый день! Укажите номер своего рабочего места (станка), ' +
-                                      'который необходимо проверить')
+                     'который необходимо проверить')
     print('warning command ' + str(message.chat.id))
 
 
-@bot.message_handler(commands=['contacts'])
+@bot.message_handler(commands=[config.CONTACTS_COMMAND])
 def contacts_command(message):
-    bot.send_message(message.chat.id, 'Акционерное общество «Силовые машины – ЗТЛ, ЛМЗ,'
-                                      'Электросила, Энергомашэкспорт» (АО «Силовые машины») \n' +
-                     'Россия, 195009, Санкт-Петербург \n' + 'ул. Ватутина, д.3, Лит. А \n' +
-                     '+7 (812) 346 70 37 \n' +
-                     '+7 (812) 346 70 35 \n' +
-                     'mail@power-m.ru \n')
-    print('contacts command ' + str(message.chat.id))
+    util.send_answer(bot, message.chat.id, config.CONTACTS_ANSWER_FILE, config.CONTACTS_LOG)
 
 
 @bot.message_handler(commands=['timetable'])
@@ -49,6 +44,7 @@ def timetable_command(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
+    # TODO: standart answer
     bot.send_message(message.chat.id, 'Спасибо, в ближайшее время с вами свяжется бригада по ремонту')
 
 
